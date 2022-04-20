@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="my-3">Liste des pays participants</h1>
+
+    <div class="my-3">
+        {{ form(form) }}
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Drapeau</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pays in paysList %}
+                <tr>
+                    <td>{{pays.nom}}</td>
+                    <td><img src="{{ asset('img/drapeaux/' ~ pays.drapeau) }}" alt="{{pays.nom}}" width="100px"></td>
+                    <td>
+                        <a href="{{ path('update_pays', {id: pays.id})}}"><button class="btn btn-info">Modifier</button></a>
+                        <a href="{{ path('delete_pays', {id: pays.id})}}"><button class="btn btn-danger">Supprimer</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-info text-center">Il n'y a pas de pays d'inscrit pour le moment</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
